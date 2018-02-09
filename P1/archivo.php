@@ -54,8 +54,8 @@ if(file_exists($carpeta_usuario)) {
 
 function insertar ($narchivo, $directorio, $id, $contenido){
     $db_host="localhost";
-    $db_user="root";
-    $db_password="";
+    $db_user="edgar";
+    $db_password="14120221";
     $db_name="archivo_bd";
     $db_table_name="archivo";
     $db_connection= mysqli_connect($db_host, $db_user, $db_password);
