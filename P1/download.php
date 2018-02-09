@@ -9,13 +9,6 @@
 session_start();
 if(isset($_SESSION['login'])){
     $nom = $_SESSION['login'];
-    echo "
-  <strong>Hola ".$nom."</strong>";
-    buscar();
-    echo "<p>
-      <a href='logout.php' class=btn btn-danger btn-block>Cerrar Sesion</a>
-  </p>
- ";
 }
 
 function buscar(){}
@@ -32,31 +25,66 @@ if (!$db_connection ) {
 $tildes = $db_connection->query("SET NAMES 'utf8'");
 
 
-#$id = $_GET['id'];
-$id = 1;
+$id = $_GET['id'];
+#$id = 1;
 $qry =
-    "SELECT archivo.id_archivo as id, archivo.nombre as nombre, usuario.nickname as usuario, archivo.ubicacion as ubi 
+    "SELECT archivo.id_archivo as id, archivo.nombre as name,
+archivo.descargas as des, archivo.contenido as con 
 FROM archivo,usuario 
-WHERE id='".$id."' AND archivo.id_usuario=usuario.id_usuario";
+WHERE id_archivo='".$id."' AND archivo.id_usuario=usuario.id_usuario";
 #$contenido = mysqli_result($res, 0, txt);
 $result = mysqli_query($db_connection,$qry);
-$nombre = mysql_result($result, 0, "nombre");
-$lugar  = mysqli_result($result, 0, "ubi");
-$nick   = mysqli_result($result, 0, "usuario");
+if ($result) {
+    $row    = mysqli_fetch_object($result);
+    $des= "{$row->des}";
+    $incremento = intval($des + 1);
+
+    $id= "{$row->id}";
+#    echo $id;
+#    echo " ";
+    $con= "{$row->con}";
+#    echo $con;
+#    echo " ";
+#
+    $nombre= "{$row->name}";
+#    echo $nombre;
+#    echo " ";
+#
+#    #$nombre = mysqli_fetch_object($result);
+#    $lugar="{$row->ubi}";
+#    echo $lugar;
+#    echo " ";
+#    $prueba="{$row->usuario}";
+#    echo $prueba;
+}else {
+    echo "Error: " . mysqli_error($db_connection);
+}
+#$nombre = mysqli_fetch_assoc($result);
+#$lugar  = mysql_result($result, 0, "ubi");
+#$nick   = mysqli_result($result, 0, "usuario");
+
 #while ($fila = mysqli_fetch_assoc($result)){
 #    $lugar  = $fila['ubi'];
 #    $nombre = $fila['name'];
 #    $nick   = $fila['usuario'];
-#
+#    #header("Location: archivos/".$nick."/".$nombre."");
+#    echo $lugar  ;
+#    echo $nombre ;
+#    echo $nick   ;
 #}
 
 
-#header("Content-type: application/txt.open");
-#header("Location: archivos/".$nick."/".$nombre."");
-echo $nombre, "<br>";
-echo $lugar, "<br>";
-header("Content-Disposition: attachment; filename=".$nombre."");
+#header("Content-type: application/txt");
+#echo $nombre, "<br>";
+#echo $lugar, "<br>";
+
 header("Content-type: txt");
-echo $nombre;
+header("Content-Disposition:: attachment; filename=".$nombre."");
+#header("Location: archivos/".$prueba."/".$nombre."");
+echo $con;
+mysqli_query($db_connection, "UPDATE archivo
+      SET `descargas` = '".$incremento."' 
+      WHERE `archivo`.`id_archivo` = '".$id."' ");
 
 ?>
+

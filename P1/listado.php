@@ -61,19 +61,21 @@ function tabla(){
 
 // Ejecuta la sentencia SQL
     $result = mysqli_query($db_connection,
-        "SELECT archivo.id_archivo as id, archivo.nombre as nombre, usuario.nickname as usuario, archivo.ubicacion as ubi 
+        "SELECT archivo.id_archivo as id, archivo.nombre as nombre,
+usuario.nickname as usuario, archivo.ubicacion as ubi, archivo.descargas as des
 FROM `archivo`,`usuario` 
 where archivo.id_usuario=usuario.id_usuario
 ");
 
     echo '<table border=1px class="table">';
     if(isset($_SESSION['login'])){
-        echo '<td>' .'id'.'</td><td>' .'nombre'.'</td><td>' .'subido por'.'</td><td>Descargar</td>';
+        echo '<td>' .'id'.'</td><td>' .'nombre'.'</td><td>' .'subido por'.'</td><td>Download</td><td>N° de Descargas</td>';
         while($fila = mysqli_fetch_assoc($result))
         {
             echo '<tr>';
             echo  '<td>' . $fila['id'] . '</td><td>' . $fila['nombre'] . '</td><td>' . $fila['usuario'] . '</td>
-                <td><a class=link href="download.php?id='.$fila['id'].'" download="">Download</a></td>';
+                <td><a class=link href="download.php?id='.$fila['id'].'" download="">Download</a></td>
+                <td>' . $fila['des'] . '</td>';
             echo '</tr>';
         }
     }else{
