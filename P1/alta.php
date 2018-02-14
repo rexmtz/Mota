@@ -12,7 +12,6 @@ $email      =$_POST['email'];
 $pass       =$_POST['pass'];
 
     include ('conexion.php');
-
 $result = mysqli_query($db_connection, "INSERT INTO usuario
     VALUES ('','".$usuario."',
                '".$pass."',

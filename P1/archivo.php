@@ -56,6 +56,7 @@ if(file_exists($carpeta_usuario)) {
 #$ficheros_subido=$dir_subida.basename($_FILES['archivo']['name']);
 
 function insertar ($narchivo, $directorio, $id, $contenido){
+
     include 'conexion.php';
     $qry="INSERT INTO archivo
       VALUES ('','".$narchivo."',

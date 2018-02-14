@@ -5,18 +5,12 @@
  * Date: 04/02/2018
  * Time: 12:17 AM
  */
+
 try {
     $SESSION['names'] = $_POST['nickuser'];
     $SESSION['pas'] = $_POST['pass'];
 
-    $db_host = "localhost";
-    $db_user = "root";
-    $db_password = "";
-    $db_name = "archivo_bd";
-    $db_table_name = "usuario";
-
-    $db_connection = mysqli_connect($db_host, $db_user, $db_password);
-    mysqli_select_db($db_connection, $db_name);
+    include 'conexion.php';
     if (mysqli_select_db($db_connection, "usuario")) ;
     {
         $sql = "SELECT id_usuario as id_usu from usuario where nickname = '".$_POST['nickuser']."' AND pass = '".$_POST['pass']."'";

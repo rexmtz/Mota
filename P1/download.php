@@ -11,6 +11,7 @@ ini_set("session.use_only_cookies", 1);
 session_start();
 if(isset($_SESSION['login'])){
     $nom = $_SESSION['login'];
+
     include ('conexion.php');
     conteo();
     $qry =

@@ -48,25 +48,14 @@ if(isset($_SESSION['login'])){
 
 
 function tabla(){
-    $db_host="localhost";
-    $db_user="root";
-    $db_password="";
-    $db_name="archivo_bd";
 
-    $db_connection= mysqli_connect($db_host, $db_user, $db_password);
-    mysqli_select_db($db_connection, $db_name);
-    if (!$db_connection ) {
-        die('No se ha podido conectar a la base de datos');
-    }
-    $tildes = $db_connection->query("SET NAMES 'utf8'");
-
+    include 'conexion.php';
 // Ejecuta la sentencia SQL
-    $result = mysqli_query($db_connection,
-        "SELECT archivo.id_archivo as id, archivo.nombre as nombre,
-usuario.nickname as usuario, archivo.ubicacion as ubi, archivo.descargas as des
-FROM `archivo`,`usuario` 
-where archivo.id_usuario=usuario.id_usuario
-");
+    $sql = "SELECT archivo.id_archivo as id, archivo.nombre as nombre,
+      usuario.nickname as usuario, archivo.ubicacion as ubi, archivo.descargas as des
+      FROM `archivo`,`usuario` 
+      where archivo.id_usuario=usuario.id_usuario";
+    $result = mysqli_query($db_connection, $sql);
 
     echo '<table border=1px class="table">';
     if(isset($_SESSION['login'])){
