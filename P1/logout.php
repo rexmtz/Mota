@@ -6,10 +6,21 @@
  * Time: 12:24 AM
  */
 
-//Inicia una nueva sesión o reanuda la existente
+
+ini_set("session.use_cookies", 1);
+ini_set("session.use_only_cookies", 1);
 session_start();
-//Destruye toda la información registrada de una sesión
+
+$_SESSION = array();
+
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
 session_destroy();
-//Redirecciona a la página de login
 header('location: subir.php');
+
 ?>

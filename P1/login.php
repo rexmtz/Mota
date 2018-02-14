@@ -16,6 +16,9 @@
  * Date: 05/02/2018
  * Time: 01:05 AM
  */
+
+ini_set("session.use_cookies", 1);
+ini_set("session.use_only_cookies", 1);
 session_start();
 if(isset($_SESSION['login'])){
     $nom = $_SESSION['login'];

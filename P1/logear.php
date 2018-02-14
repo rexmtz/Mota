@@ -30,18 +30,12 @@ try {
             header('Location: ../P1/subir.php');
 
         }
-        #$SESSION['names'] = $_POST['usuario'];
-        #$SESSION['pas'] = $_POST['pass'];
 
         else {
             echo "<h1>Datos Incorrectos</h1>";
-            //$errores .='<li>Datos incorrectos</li>';
             echo "<script>alert('Datos incorrectos');</script>";
             echo "<a href='login.php'>Regresar</a>";
         }
-//$nombres    =$_POST['nombre'];
-//$email      =$_POST['email'];
-//$pass       =$_POST['pass'];
     }
 }
 catch(PDO_Exception $e) {
